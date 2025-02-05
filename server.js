@@ -7,7 +7,7 @@ const session = require('express-session');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-
+const port = process.env.PORT || 3000;
 const app = express();
 
 // Middleware setup
@@ -23,7 +23,7 @@ app.use('/user', userRoutes);
 // Connect to DB and start server
 const startServer = async () => {
   await connectDB();
-  app.listen(3000, () => {
+  app.listen(port, () => {
     console.log('Server running on http://localhost:3000');
   });
 };
