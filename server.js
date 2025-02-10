@@ -9,6 +9,8 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const port = process.env.PORT || 3000;
 const app = express();
+const cross = require('cors');
+app.use(cross());
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -16,6 +18,13 @@ app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: f
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Import Routes
+const patientRoutes = require("./routes/patientRoutes");
+// const organizationRoutes = require("./routes/organizationRoutes");
+
+// Use Routes
+app.use("/api/patients", patientRoutes);
+// app.use("/api/organizations", organizationRoutes);
 // Routes
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
